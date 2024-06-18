@@ -1,16 +1,16 @@
 name: Pull Request Labels
+
 on:
   pull_request:
-    types: [opened, labeled, unlabeled, synchronize]
+    types: closed
+
 jobs:
-  label:
+  my_job:
+    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
     steps:
-      - uses: mheap/github-action-required-labels@v5
-        with:
-          mode: exactly
-          count: 0
-          labels: "do not merge"
+    - uses: mheap/github-action-required-labels@v5
+      with:
+        mode: exactly
+        count: 0
+        labels: "do not merge"
